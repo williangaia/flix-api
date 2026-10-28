@@ -1,0 +1,46 @@
+[project]
+name = "flix-api"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "django>=6.1.2",
+    "pydantic-settings>=2.16.2",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.17.3",
+    "taskipy>=1.14.1",
+]
+
+[tool.uv]
+package = false
+
+[tool.ruff]
+line-length = 79
+extend-exclude = ["migrations"]
+
+[tool.ruff.lint]
+select = ['I', 'F', 'E', 'W', 'PL', 'UP', 'B', 'DJ']
+ignore = ['PLR2004', 'PLR0917', 'PLR0913']
+
+[tool.ruff.lint.per-file-ignores]
+"app/settings.py" = ['E501']
+"manage.py" = ['PLC0415']
+#"cars/apps.py" = ['PLC0415', 'F401']
+#"cars/models.py" = ['DJ001']
+
+[tool.ruff.format]
+quote-style = 'single'
+
+[tool.taskipy.tasks]
+lint = 'ruff check'
+pre_format = 'ruff check --fix'
+format = 'ruff format'
+run = 'python manage.py runserver'
+migrate = 'python manage.py migrate'
+makemigrations = 'python manage.py makemigrations'
+shell = 'python manage.py shell'
+check = 'python manage.py check'
