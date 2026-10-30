@@ -1,6 +1,6 @@
 import json
 
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 
@@ -12,7 +12,11 @@ def genre_create_list_view(request):
     if request.method == 'GET':
         genres = Genre.objects.all()
         data = [{'id': genre.id, 'name': genre.name} for genre in genres]
-        return JsonResponse(data=data, safe=False)
+        return JsonResponse(
+            data=data,
+            safe=False,
+            status=200,
+        )
     elif request.method == 'POST':
         data = json.loads(request.body.decode('utf-8'))
         new_genre = Genre(name=data['name'])
@@ -35,7 +39,10 @@ def genre_detail_view(request, pk):
             'id': genre.id,
             'name': genre.name,
         }
-        return JsonResponse(data)
+        return JsonResponse(
+            data,
+            status=200,
+        )
     elif request.method == 'PUT':
         data = json.loads(request.body.decode('utf-8'))
         genre.name = data['name']
@@ -47,3 +54,6 @@ def genre_detail_view(request, pk):
             },
             status=200,
         )
+    elif request.method == 'DELETE':
+        genre.delete()
+        return HttpResponse(status=204)
