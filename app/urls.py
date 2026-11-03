@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path
 
-from genres.views import GenreCreateListView, genre_detail_view
+from genres.views import GenreCreateListView, GenreRetrieveUpdateDestroyView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -12,7 +12,7 @@ urlpatterns = [
     ),
     path(
         route='genres/<int:pk>/',
-        view=genre_detail_view,
+        view=GenreRetrieveUpdateDestroyView.as_view(),
         name='genre-detail-view',
     ),
 ]
