@@ -14,7 +14,7 @@ class Review(models.Model):
         validators=[
             MinValueValidator(
                 limit_value=0,
-                message='Avalição não pode ser inferior a 0 estrelas',
+                message='Avaliação não pode ser inferior a 0 estrelas',
             ),
             MaxValueValidator(
                 limit_value=5,
@@ -25,4 +25,4 @@ class Review(models.Model):
     comment = models.TextField(blank=True)
 
     def __str__(self):
-        return self.movie
+        return str(self.movie)
