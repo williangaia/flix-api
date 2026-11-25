@@ -13,4 +13,9 @@ urlpatterns = [
         view=views.MovieRetrieveUpdateDestroyView.as_view(),
         name='movie-detail-view',
     ),
+    path(
+        route='movies/stats/',
+        view=views.MovieStatsView.as_view(),
+        name='movie-stats-view',
+    ),
 ]
